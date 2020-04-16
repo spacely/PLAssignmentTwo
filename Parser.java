@@ -6,7 +6,7 @@
 *
 */
 
-
+import java.util.*;
 
 public class Parser{
 
@@ -88,6 +88,67 @@ public class Parser{
         return new Variable(expression.substring(start,position));
       }
       return null;
+  }
+
+Operator operator(){
+  consumeWhiteSpace();
+  char next = 'x';
+  if(position < expression.length()){
+    next = expression.charAt(position);
+    position++;
+  }
+  if(next == '+'){
+    return Operator.PLUS;
+  } else if(next == '-'){
+    return Operator.MINUS;
+  }else if(next == '*'){
+    return Operator.MULT;
+  }else if(next == '+'){
+    return Operator.PLUS;
+  }
+
+  return null;
+}
+
+
+  boolean operators_test(){
+    int start = position;
+    boolean result = false;
+    operator();
+    result = true;
+    position = start;
+    return result;
+  }
+
+
+//A method to build the expression from parsed strings based on the input
+  Expression expression(){
+    Expression firstUnit = unit();
+
+    List<OperatorExpression> AllUnits = new ArrayList<OperatorExpression>();
+
+    while(operators_test()){
+      Operator op = operator();
+      Expression expr = unit();
+      AllUnits.add(new OperatorExpression(op,expr));
+    }
+    Expression expr = firstUnit;
+    for(int i=0;i<AllUnits.size();i++){
+      OperatorExpression oe = AllUnits.get(i);
+      switch(oe.operator){
+        case PLUS:
+        expr = new Addition(expr,atom.expression);
+
+      }
+
+
+    }
+
+
+
+
+
+    return null;
   }
 
 
