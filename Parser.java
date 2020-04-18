@@ -7,6 +7,8 @@
 */
 
 import java.util.*;
+import java.lang.*;
+
 
 public class Parser{
 
@@ -99,12 +101,12 @@ Expression parseIntegers(){
   consumeWhiteSpace();
   int start = position;
   boolean negative_sign = position < expression.length() && expression.charAt(position) == '-';
-  if(minus){
+  if(negative_sign){
     position++;
   }
   boolean found_digits = false;
   //check for digists and start building
-  whille(position < expression.length() && Character.isDigit(expression.charAt(position))){
+  while(position < expression.length() && Character.isDigit(expression.charAt(position) ) ){
     position++;
     found_digits = true;
   }
