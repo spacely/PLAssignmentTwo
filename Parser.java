@@ -72,6 +72,10 @@ public class Parser{
     int start = position;
     Expression result;
     result = variable();
+    position = start;
+    consumeToken("(");
+    result = expression();
+    consumeToken(")");
 
     return result;
 
@@ -90,6 +94,28 @@ public class Parser{
       return null;
   }
 
+
+Expression parseIntegers(){
+  consumeWhiteSpace();
+  int start = position;
+  boolean negative_sign = position < expression.length() && expression.charAt(position) == '-';
+  if(minus){
+    position++;
+  }
+  boolean found_digits = false;
+  //check for digists and start building
+  whille(position < expression.length() && Character.isDigit(expression.charAt(position))){
+    position++;
+    found_digits = true;
+  }
+
+  if(found_digits){
+    return new Int(Integer.parseInt(expression.substring(start,position)));
+  }
+  return null;
+}
+
+
 Operator operator(){
   consumeWhiteSpace();
   char next = 'x';
@@ -103,8 +129,6 @@ Operator operator(){
     return Operator.MINUS;
   }else if(next == '*'){
     return Operator.MULT;
-  }else if(next == '+'){
-    return Operator.PLUS;
   }
 
   return null;
@@ -133,14 +157,19 @@ Operator operator(){
       AllUnits.add(new OperatorExpression(op,expr));
     }
     Expression expr = firstUnit;
-    for(int i=0;i<AllUnits.size();i++){
-      OperatorExpression oe = AllUnits.get(i);
-      switch(oe.operator){
-        case PLUS:
-        expr = new Addition(expr,atom.expression);
+    for(OperatorExpression unit: AllUnits){
+        switch(unit.ops){
+          case PLUS:
+          expr = new Addition(expr,unit.expression);
+          break;
+          case MINUS:
+          expr = new Substraction(expr,unit.expression);
+          break;
+          case MULT:
+          expr = new Multiplication(expr,unit.expression);
+          break;
 
-      }
-
+        }
 
     }
 
@@ -148,7 +177,7 @@ Operator operator(){
 
 
 
-    return null;
+    return expr;
   }
 
 

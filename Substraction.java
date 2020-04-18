@@ -12,8 +12,8 @@ public class Substraction extends Expression{
 
   //over riding of the default object method to do comparison of two things.
   //We compare the class of the object and use it for assignment operators in general.
-
-  public boolean(Object o){
+@Override
+  public boolean equals(Object o){
     if(o == this) {
       return true;
     }
@@ -21,14 +21,12 @@ public class Substraction extends Expression{
       return false;
     }
 
-    Substraction o = Substraction(o); //cash incoming object to Type of Addition
-    if(!first.equals(that.second)){
+    Substraction sub = (Substraction)o; //cast incoming object to Type of Addition
+    if(!first.equals(sub.first) ){
       return false;
     }
-    return (second.equals(that.first)){
-      return false;
-    }
-    return second.equals(that.second);
+
+    return second.equals(sub.second);
   }
 
 
