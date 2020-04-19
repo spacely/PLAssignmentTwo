@@ -179,6 +179,60 @@ Operator operator(){
     return expr;
   }
 
+//A structure that now recognizes each token seen as it breaks it into tokens.
+//This then creates a chain of various objects chained together. This would the various types of commands we can have
+// Variables,loops, conditional statements.
+
+//This parses the entire input string into an ArrayList that stores all the tokens.
+Command command(){
+  //Command firstcommand = statements();
+  List<Command> moreCommands = new ArrayList<Command>(); //This keeps all the tokens
+  while(checkahead(";")){
+    consumeToken(";");
+    Command command = command();
+    moreCommands.add(command);
+
+  }
+  Command command = firstcommand;
+  for(Commmand statement: moreCommands){
+    command = new Combination(command,statement);
+  }
+
+  return command;
+
+
+}
+
+
+//This assigns variables.
+  Command AssignVariables(){
+    Variable variable = variable();
+      consumeToken(":=");
+      Expression expr =  expression();
+      return new AssignVariables(variable,expr);
+
+  }
+
+
+
+  //The code portion breaks into conditional statements objects.
+
+  Command conditional(){
+    consumeToken("if");
+    consumeToken("(");
+    Expression condition = expression();
+    consumeToken(")");
+    consumeToken("then");
+    consumeToken("{");
+    Command thencase = command();
+    consumeToken("}");
+    consumeToken("else");
+    consumeToken("{");
+    Command elseCode = command();
+    consumeToken("}");
+    return new Conditionals(condition,thencase,elseCode);
+  }
+
 
 
 

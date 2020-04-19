@@ -1,5 +1,5 @@
 /**
-*
+*A class that handles variables 
 */
 
 
