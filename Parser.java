@@ -185,7 +185,7 @@ Operator operator(){
 
 //This parses the entire input string into an ArrayList that stores all the tokens.
 Command command(){
-  //Command firstcommand = statements();
+  Command firstcommand = statement();
   List<Command> moreCommands = new ArrayList<Command>(); //This keeps all the tokens
   while(checkahead(";")){
     consumeToken(";");
@@ -194,13 +194,20 @@ Command command(){
 
   }
   Command command = firstcommand;
-  for(Commmand statement: moreCommands){
+  for(Command statement: moreCommands){
     command = new Combination(command,statement);
   }
 
   return command;
 
 
+}
+
+Command statement(){
+  int start = position;
+  Command statement;
+  statement = AssignVariables();
+  return statement;
 }
 
 
