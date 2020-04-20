@@ -1,8 +1,8 @@
 
 //A Structure that holds Loop expressions.
 public class Loop extends Command{
-private Expression condition;
-private Command command;
+public Expression expr;
+public Command command;
 
   public Loop(Expression expr,Command command){
     this.expr = expr;
@@ -19,7 +19,7 @@ private Command command;
       }
       Loop loop = (Loop)o;
 
-      if(!condition.equals(loop.condition)){
+      if(!expr.equals(loop.expr)){
         return false;
       }
       return command.equals(loop.command);

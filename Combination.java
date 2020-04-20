@@ -1,8 +1,8 @@
 //A Class that combines two sub commands together.
 
 public class Combination extends Command {
-  Command first;
-  Command second;
+  public Command first;
+  public Command second;
   public Combination(Command first,Command second){
     this.first = first;
     this.second = second;

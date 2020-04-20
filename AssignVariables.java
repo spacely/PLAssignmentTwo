@@ -1,8 +1,8 @@
 
 // A class that assigns a variable to a value or an expression
 public class  AssignVariables extends Command {
-  Variable variable ;
-  Expression expr;
+  public Variable variable ;
+  public Expression expr;
   public AssignVariables(Variable variable,Expression expr){
     this.variable = variable;
     this.expr = expr;
