@@ -18,7 +18,7 @@ public Interpreter(Command command){
 
 public void AssignmentInterpret(AssignVariables composition){
 Evaluator evaluator = new Evaluator(composition.expr,evaluation);
-valuation.put(composition.variable.name,evaluator.getValue());
+evaluation.put(composition.variable.name,evaluator.getValue());
 
 }
 
@@ -39,7 +39,7 @@ public void ConditionalInterpret(Conditionals conditional){
 }
 
 public void LoopInterpret(Loop loop){
-  Evaluator evaluator = new Evaluator(loop.condition,valuation);
+  Evaluator evaluator = new Evaluator(loop.expr,evaluation);
   if(evaluator.getValue()!=0){
     visit(new Combination(loop.command,loop));
   }

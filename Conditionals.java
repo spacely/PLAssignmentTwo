@@ -1,9 +1,9 @@
 //A Class that combines two sub commands together.
 
 public class Conditionals extends Command {
-  private Expression ACondition;
-  private Command thenphase;
-  private Command elsephase;
+  public Expression ACondition;
+  public Command thenphase;
+  public Command elsephase;
 
   public Conditionals(Expression ACondition,Command thenphase,Command elsephase){
     this.ACondition = ACondition;

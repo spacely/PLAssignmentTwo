@@ -10,7 +10,7 @@ public class Evaluator extends Visitor<Integer> {
     this.valuation.putAll(valuation);
     value = visit(expression);
   }
-  public int value(){
+  public int getValue(){
     return value;
   }
 
@@ -25,7 +25,7 @@ public class Evaluator extends Visitor<Integer> {
   public Integer IntInterpreter(Int integer){
     return integer.val;
   }
-  public Integer VariableInterpreter(Variable variable){
+  public Integer VariableInterpreter(Variable variable) throws Exception{
     if(valuation.containsKey(variable.name)){
       return valuation.get(variable.name);
     }

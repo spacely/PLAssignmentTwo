@@ -240,6 +240,30 @@ Command statement(){
     return new Conditionals(condition,thencase,elseCode);
   }
 
+  Command loop(){
+    consumeToken("while");
+    consumeToken("(");
+    Expression condition = expression();
+    consumeToken(")");
+    consumeToken("do");
+    consumeToken("{");
+    Command command = command();
+    consumeToken("}");
+    return new Loop(condition,command);
+
+
+  }
+
+  public Command parse() throws Exception{
+    position = 0;
+    Command command = command();
+    consumeWhiteSpace();
+    if(position < expression.length()){
+      throw new Exception();
+    }
+    return command;
+  }
+
 
 
 

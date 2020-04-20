@@ -14,6 +14,8 @@ public class WhileInterpreter{
     Parser parser = new Parser(code);
     Command command = parser.parse();
     Interpreter interpret = new Interpreter(command);
+    Map<String,Integer> ev = interpret.getEvaluation();
+    System.out.println(ev);
 
 
 
